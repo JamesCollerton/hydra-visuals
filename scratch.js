@@ -1,1 +1,1 @@
-osc(20, 0.1, 0.8).rotate(0.8).pixelate(20, 30).out()
+osc(function(){return 100 * Math.sin(time * 0.1)}).out()
