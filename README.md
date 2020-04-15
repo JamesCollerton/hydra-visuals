@@ -6,4 +6,4 @@ All live coding visual ideas
 
 ## Verda
 
-A useful introduction tutorial can be found (here)[https://thebookofshaders.com/].
+A useful introduction tutorial can be found [here](https://thebookofshaders.com/).
