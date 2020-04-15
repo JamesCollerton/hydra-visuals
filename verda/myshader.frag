@@ -1,5 +1,6 @@
 /*{ "audio": true }*/
 precision mediump float;
+
 uniform float time;
 uniform vec2  resolution;
 uniform sampler2D texture;
@@ -18,5 +19,6 @@ void main (void) {
     float g = 1. - step(0.01, abs(freq - uv.y));
     float b = 1. - step(0.01, abs(volume / 255. - uv.y));
 
+    // Red, green, blue and alpha channels
     gl_FragColor = vec4(r, g, b, 1.);
 }
