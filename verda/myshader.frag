@@ -63,21 +63,6 @@ void audioWave(vec2 uv) {
   gl_FragColor = vec4(c);
 }
 
-// Plots a wave form sensitive to sound
-void volumeFader(vec2 uv) {
-
-  float sensitivity = 0.2;
-
-  float wave = volume * 2.0;
-
-  // Step, first field is a limit, second one is the value we want to check or pass. So if this
-  // is less than 0.1 it will be 1.0, otherwise it will be 0. So if this is over 0.01 then we see
-  // white, otherwise it's black
-  float c = 1.0 - step(sensitivity, abs(wave - uv.y));
-
-  gl_FragColor = vec4(c);
-}
-
 void plotLine(vec2 uv) {
 
   // So at any one time uv seems to be the (x, y) coordinates of the current
@@ -116,8 +101,8 @@ void main (void) {
     // run from 0 to 1
     vec2 uv = gl_FragCoord.xy / resolution.xy;
 
-    // audioWave(uv);
-    volumeFader(uv);
+    audioWave(uv);
+    // volumeFader(uv);
     // timeSpectrum(uv);
     // plotLine(uv);
 
