@@ -16,7 +16,22 @@ uniform sampler2D samples;
 uniform float volume;
 
 /*
-  FUNCTIONS
+  UTILITY FUNCTIONS
+
+  These are all wrapper functions used to perform tasks shared by the various visual
+  functions
+*/
+
+// Plot a line on Y using a value between 0.0-1.0
+float plot(vec2 st, float pct){
+  // I think this is pretty much stretch the y value between the two
+  // x values
+  return  smoothstep( pct-0.02, pct, st.y) -
+          smoothstep( pct, pct+0.02, st.y);
+}
+
+/*
+  VISUAL FUNCTIONS
 
   All of these should have the parameters in the top of the function in order to
   alter the shapes drawn
@@ -37,23 +52,17 @@ void audioWave(vec2 uv) {
   gl_FragColor = vec4(c);
 }
 
-// Plot a line on Y using a value between 0.0-1.0
-float plot(vec2 st, float pct){
-  return  smoothstep( pct-0.02, pct, st.y) -
-          smoothstep( pct, pct+0.02, st.y);
-}
-
 void plotLine(vec2 uv) {
 
   // So at any one time uv seems to be the (x, y) coordinates of the current
   // pixel being shaded.
-  float y = uv.x;
+  float y = 0.4 * sin(uv.x * 15.0) + 0.5;
 
-  vec3 color = vec3(y);
+  vec3 color = vec3(0.0);
 
   // Plot a line
   float pct = plot(uv,y);
-  color = (1.0-pct)*color+pct*vec3(0.0,1.0,0.0);
+  color = (1.0-pct)*color+pct*vec3(1.0);
 
   gl_FragColor = vec4(color,1.0);
 
