@@ -9,7 +9,18 @@ precision mediump float;
 uniform float time;
 uniform vec2  resolution;
 
-// Audio uniforms
+/*
+  Audio uniforms
+
+  sampler2D samples stores the most recent 256 frames from the audio input.
+  This is useful for drawing waveforms.
+
+  sampler2D spectrum stores the FFT result.
+  This is useful to draw the volume of specific frequency band, such as spectrum visualizer.
+
+  float volume is the average of all the frequency bands in spectrum.
+*/
+
 uniform sampler2D texture;
 uniform sampler2D spectrum;
 uniform sampler2D samples;
@@ -42,7 +53,22 @@ void audioWave(vec2 uv) {
 
   float sensitivity = 0.01;
 
-  float wave = texture2D(samples, vec2(uv.x, .5)).r;
+  float wave = texture2D(samples, vec2(uv.x, .5)).g;
+
+  // Step, first field is a limit, second one is the value we want to check or pass. So if this
+  // is less than 0.1 it will be 1.0, otherwise it will be 0. So if this is over 0.01 then we see
+  // white, otherwise it's black
+  float c = 1.0 - step(sensitivity, abs(wave - uv.y));
+
+  gl_FragColor = vec4(c);
+}
+
+// Plots a wave form sensitive to sound
+void volumeFader(vec2 uv) {
+
+  float sensitivity = 0.2;
+
+  float wave = volume * 2.0;
 
   // Step, first field is a limit, second one is the value we want to check or pass. So if this
   // is less than 0.1 it will be 1.0, otherwise it will be 0. So if this is over 0.01 then we see
@@ -91,7 +117,8 @@ void main (void) {
     vec2 uv = gl_FragCoord.xy / resolution.xy;
 
     // audioWave(uv);
+    volumeFader(uv);
     // timeSpectrum(uv);
-    plotLine(uv);
+    // plotLine(uv);
 
 }
