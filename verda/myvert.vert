@@ -15,13 +15,14 @@ uniform vec2 resolution;
 varying vec4 v_color;
 
 void main() {
-  float i = vertexId * time * 0.005;
+  float i = vertexId * time * volume;
 
+  float wave = texture2D(samples, vec2(vertexId, .5)).g;
 
   vec3 pos = vec3(
-    cos(i),
-    sin(i),
-    cos(i)
+    cos(i * 2.0 * wave),
+    sin(i * 2.0),
+    cos(i * 2.0)
   );
 
   gl_Position = vec4(pos.x, pos.y, pos.z, 1);
