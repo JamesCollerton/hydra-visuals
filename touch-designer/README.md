@@ -16,7 +16,7 @@ Components - Object components (3D objects), Panel components (2D UI gadgets), a
 
 Texture Operators - all 2D image operations.
 
-- These are essentially inputs
+- These are essentially _visual_ inputs
 - We can zoom out to the project view to set global settings
 
 #### List of TOPs
@@ -37,9 +37,18 @@ Texture Operators - all 2D image operations.
 
 Channel Operators - motion, audio, animation, control signals.
 
+- These emit values, so could be emitted via audio input, visual input etc.
+- MIDI interfaces are also CHOPs
+
 ### SOPs
 
 Surface Operators - 3D points, polygons and other 3D "primitives".
+
+- Can activate the viewer mode and browse in 3D
+- We need from COMPs camera, light and geometry, them from TOPs a render
+- You can rotate the camera to change the render
+- There's a snap to camera option
+- Turbulence and normals are key to particles
 
 ### DATs 
 
